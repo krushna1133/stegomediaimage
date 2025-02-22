@@ -110,10 +110,21 @@ const decryptImage = async (req, res) => {
                         // ✅ Decrypt the message using the password
                         const decryptedMessage = decryptText(message, password);
 
+                        //new add for check error at 01:40 AM
+                        if (!decryptedMessage) {
+                              return res.status(400).json({ error: "Invalid password or corrupted image." });
+                        }
+
+                        
                         if (decryptedMessage === null) {
                             console.error("❌ Incorrect Password! Decryption failed.");
                             return res.status(400).json({ error: "Incorrect password. Unable to decrypt message." });
                         }
+
+                        //added for check file send after encryption is correct or not
+                        console.log("🔍 Received Image:", req.file);
+                        console.log("🔍 Received Password:", req.body.password);
+
 
                         console.log("✅ Decrypted Message:", decryptedMessage);
                         return res.json({ message: decryptedMessage });
