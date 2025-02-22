@@ -64,19 +64,22 @@ const encryptImage = async (req, res) => {
     }
 };
 
-
-
+//this change
 const decryptText = (encryptedText, password) => {
     try {
-        const decipher = crypto.createDecipher("aes-256-cbc", password);
-        let decrypted = decipher.update(encryptedText, "hex", "utf-8");
-        decrypted += decipher.final("utf-8");
+        const [ivHex, encryptedData] = encryptedText.split(":"); // Extract IV and encrypted text
+        const iv = Buffer.from(ivHex, "hex");
+        const key = crypto.scryptSync(password, "salt", 32);
+
+        const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+        let decrypted = decipher.update(encryptedData, "hex", "utf8");
+        decrypted += decipher.final("utf8");
+
         return decrypted;
     } catch (error) {
         return null; // Return null if the password is incorrect
     }
 };
-
 const decryptImage = async (req, res) => {
     try {
         if (!req.file || !req.body.password) {
@@ -86,7 +89,15 @@ const decryptImage = async (req, res) => {
         const imageBuffer = req.file.buffer;
         const password = req.body.password;
 
-        const image = await Jimp.read(imageBuffer);
+        console.log("🔍 Received Image:", req.file);
+        console.log("🔍 Received Password:", password);
+
+        // Write buffer to temp file (some Jimp versions require this)
+        const tempPath = path.join(__dirname, "../uploads/temp.png");
+        fs.writeFileSync(tempPath, imageBuffer);
+
+        const image = await Jimp.read(tempPath); // Read from file instead of buffer
+
         let binaryMessage = "";
         let message = "";
 
@@ -110,21 +121,9 @@ const decryptImage = async (req, res) => {
                         // ✅ Decrypt the message using the password
                         const decryptedMessage = decryptText(message, password);
 
-                        //new add for check error at 01:40 AM
                         if (!decryptedMessage) {
-                              return res.status(400).json({ error: "Invalid password or corrupted image." });
+                            return res.status(400).json({ error: "Invalid password or corrupted image." });
                         }
-
-                        
-                        if (decryptedMessage === null) {
-                            console.error("❌ Incorrect Password! Decryption failed.");
-                            return res.status(400).json({ error: "Incorrect password. Unable to decrypt message." });
-                        }
-
-                        //added for check file send after encryption is correct or not
-                        console.log("🔍 Received Image:", req.file);
-                        console.log("🔍 Received Password:", req.body.password);
-
 
                         console.log("✅ Decrypted Message:", decryptedMessage);
                         return res.json({ message: decryptedMessage });
@@ -140,7 +139,6 @@ const decryptImage = async (req, res) => {
         res.status(500).json({ error: "Decryption failed", details: error.message });
     }
 };
-
 
 
 module.exports = { encryptImage, decryptImage };
