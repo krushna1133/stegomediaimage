@@ -1,0 +1,209 @@
+/* Colors.css */
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #3b3aca;
+  --secondary: #3D8D7A;
+  --secondary-dark: #1d2620;
+  --background-gradient: linear-gradient(to bottom right, #4f46e5, #d946ef);
+  --white: #ffffff;
+  --text-dark: #2d2d2d;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-shadow: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--background-gradient);
+  color: var(--text-dark);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Smooth Fade-in Effect */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Colors.css */
+.btn-dark {
+  display: inline-block;
+  margin: 2%;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #2d3748;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.btn-dark:hover {
+  background-color: #2d3748;
+  /* Darker shade on hover */
+  border-color: #1a202c;
+  /* Even darker border */
+  transform: scale(1.05);
+}
+
+.btn-dark:active {
+  background-color: #1a202c;
+  /* Almost black on click */
+  transform: scale(0.95);
+}
+
+
+.btn-light {
+  display: inline-block;
+  margin: 2%;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.btn-light:hover {
+  color: #ffffff;
+  background-color: #2d3748;
+  /* Darker shade on hover */
+  border-color: #1a202c;
+  /* Even darker border */
+  transform: scale(1.05);
+}
+
+.btn-light:active {
+  background-color: #360f0f;
+  /* Almost black on click */
+  transform: scale(0.95);
+}
+
+
+
+
+/* Card Design */
+.card {
+  background: var(--white);
+  border-radius: 30px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 2px solid var(--border-color);
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px var(--hover-shadow);
+}
+
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  text-transform: uppercase;
+}
+
+h1 span {
+  color: var(--primary);
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  margin: 2%;
+  padding: 10px 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover::before {
+  left: 0;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px var(--hover-shadow);
+}
+
+/* Primary Button */
+.button:first-of-type {
+  background: var(--primary);
+}
+
+.button:first-of-type:hover {
+  background: var(--primary-dark);
+}
+
+/* Secondary Button */
+.button:last-of-type {
+  background: var(--secondary);
+}
+
+.button:last-of-type:hover {
+  background: var(--secondary-dark);
+}
+
+.fixed-image {
+  width: 10cm;
+  height: 10cm;
+  object-fit: contain;
+  /* Ensures the image scales without distortion */
+  border: 1px solid #ccc;
+  /* Optional: Adds a border */
+  border-radius: 8px;
+  /* Optional: Rounded corners */
+}
+
+
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,12 @@
+.encrypted-image {
+    width: 5cm;
+    /* Set width to 5cm */
+    height: 5cm;
+    /* Set height to 5cm */
+    object-fit: cover;
+    /* Ensures the image maintains aspect ratio */
+    border-radius: 8px;
+    /* Optional: Rounded corners */
+    border: 1px solid #ccc;
+    /* Optional: Light border */
+}
