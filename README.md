@@ -6,10 +6,10 @@ https://stegomediaimage.vercel.app/
 
 #to run this file
 
-In: stegomedia/server
+In: stegomediaimage/server
 
 node server.js
 
-In: stegomedia/client
+In: stegomediaimage/client
 
 npm start
